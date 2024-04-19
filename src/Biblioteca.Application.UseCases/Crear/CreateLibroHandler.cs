@@ -17,7 +17,8 @@ namespace Biblioteca.Application.UseCases.Crear
             var nuevo = new Libro()
             {
                 Nombre = request.Nombre,
-                Descripcion = request.Descripcion
+                Descripcion = request.Descripcion,
+                Estado = "L" //L Libre, P Prestado    
             };
 
             await _dbcontext.Libro.AddAsync(nuevo);

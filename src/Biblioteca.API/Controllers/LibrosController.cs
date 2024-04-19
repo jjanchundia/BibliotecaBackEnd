@@ -1,5 +1,8 @@
 ﻿using Biblioteca.Application.UseCases.Consultar;
 using Biblioteca.Application.UseCases.Crear;
+using Biblioteca.Application.UseCases.Devolver;
+using Biblioteca.Application.UseCases.Eliminar;
+using Biblioteca.Application.UseCases.Prestar;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,22 +35,25 @@ namespace Biblioteca.API.Controllers
             return Ok(response);
         }
 
-        // POST api/<LibrosController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpDelete("delete/{libroId:int}")]
+        public async Task<IActionResult> DeleteLibro(int analisisId)
         {
+            var response = await _mediator.Send(new DeleteLibroCommand() { LibroId = analisisId });
+            return Ok(response);
         }
 
-        // PUT api/<LibrosController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("prestar")]
+        public async Task<IActionResult> PrestarLibro([FromBody] PrestarCommand command)
         {
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
 
-        // DELETE api/<LibrosController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost("devolver")]
+        public async Task<IActionResult> Devolveribro([FromBody] DevolverLibroCommand command)
         {
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
     }
 }

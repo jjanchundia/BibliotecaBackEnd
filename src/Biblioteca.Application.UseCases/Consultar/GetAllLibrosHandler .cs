@@ -21,7 +21,8 @@ namespace Biblioteca.Application.UseCases.Consultar
             {
                 LibroId = libro.LibroId,
                 Nombre = libro.Nombre,
-                Descripcion = libro.Descripcion
+                Descripcion = libro.Descripcion,
+                Estado = libro.Estado
             }).ToList();
 
             return librosDto;

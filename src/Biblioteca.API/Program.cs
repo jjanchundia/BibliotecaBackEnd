@@ -1,6 +1,9 @@
 using Biblioteca.Application.Dtos;
 using Biblioteca.Application.UseCases.Consultar;
 using Biblioteca.Application.UseCases.Crear;
+using Biblioteca.Application.UseCases.Devolver;
+using Biblioteca.Application.UseCases.Eliminar;
+using Biblioteca.Application.UseCases.Prestar;
 using Biblioteca.Domain;
 using Biblioteca.Persistence;
 using MediatR;
@@ -24,6 +27,9 @@ builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblies(Assembly.GetEx
 
 builder.Services.AddScoped<IRequestHandler<GetlAllLibrosQuery, List<LibroDto>>, GetAllLibrosHandler>();
 builder.Services.AddScoped<IRequestHandler<CreateLibroCommand, bool>, CreateLibroHandler>();
+builder.Services.AddScoped<IRequestHandler<DeleteLibroCommand, bool>, DeleteLibroHandler>();
+builder.Services.AddScoped<IRequestHandler<DevolverLibroCommand, bool>, DevolverLibroHandler>();
+builder.Services.AddScoped<IRequestHandler<PrestarCommand, bool>, PrestarHandler>();
 
 
 //();
