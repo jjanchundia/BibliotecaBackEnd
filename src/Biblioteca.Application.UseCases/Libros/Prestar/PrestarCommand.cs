@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Biblioteca.Application.UseCases.Prestar
+namespace Biblioteca.Application.UseCases.Libros.Prestar
 {
     public class PrestarCommand : IRequest<bool>
     {

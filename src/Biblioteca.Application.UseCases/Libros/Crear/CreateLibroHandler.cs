@@ -2,7 +2,7 @@
 using Biblioteca.Persistence;
 using Biblioteca.Domain;
 
-namespace Biblioteca.Application.UseCases.Crear
+namespace Biblioteca.Application.UseCases.Libros.Crear
 {
     public class CreateLibroHandler : IRequestHandler<CreateLibroCommand, bool>
     {

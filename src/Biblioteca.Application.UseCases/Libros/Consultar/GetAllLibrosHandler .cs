@@ -3,7 +3,7 @@ using Biblioteca.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Biblioteca.Application.UseCases.Consultar
+namespace Biblioteca.Application.UseCases.Libros.Consultar
 {
     public class GetAllLibrosHandler : IRequestHandler<GetlAllLibrosQuery, List<LibroDto>>
     {

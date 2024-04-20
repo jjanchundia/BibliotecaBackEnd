@@ -1,9 +1,9 @@
 ﻿using Biblioteca.Persistence;
 using MediatR;
 
-namespace Biblioteca.Application.UseCases.Prestar
+namespace Biblioteca.Application.UseCases.Libros.Prestar
 {
-    public class PrestarHandler: IRequestHandler<PrestarCommand, bool>
+    public class PrestarHandler : IRequestHandler<PrestarCommand, bool>
     {
         private readonly ApplicationDbContext _dbcontext;
         public PrestarHandler(ApplicationDbContext dbcontext)

@@ -1,10 +1,11 @@
-﻿using Biblioteca.Application.UseCases.Consultar;
-using Biblioteca.Application.UseCases.Crear;
-using Biblioteca.Application.UseCases.Devolver;
-using Biblioteca.Application.UseCases.Eliminar;
-using Biblioteca.Application.UseCases.Prestar;
+﻿using Biblioteca.Application.UseCases.Libros.Consultar;
+using Biblioteca.Application.UseCases.Libros.Crear;
+using Biblioteca.Application.UseCases.Libros.Devolver;
+using Biblioteca.Application.UseCases.Libros.Eliminar;
+using Biblioteca.Application.UseCases.Libros.Prestar;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,8 +13,11 @@ namespace Biblioteca.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LibrosController : ControllerBase
     {
+        //Uso de Mediatr que implementa el patrón Mediator en C#.
+        //El patrón Mediator es un patrón de diseño de comportamiento que reduce el acoplamiento entre los componentes de un programa
         private readonly IMediator _mediator;
         public LibrosController(IMediator mediator)
         {
@@ -36,9 +40,9 @@ namespace Biblioteca.API.Controllers
         }
 
         [HttpDelete("delete/{libroId:int}")]
-        public async Task<IActionResult> DeleteLibro(int analisisId)
+        public async Task<IActionResult> DeleteLibro(int libroId)
         {
-            var response = await _mediator.Send(new DeleteLibroCommand() { LibroId = analisisId });
+            var response = await _mediator.Send(new DeleteLibroCommand() { LibroId = libroId });
             return Ok(response);
         }
 

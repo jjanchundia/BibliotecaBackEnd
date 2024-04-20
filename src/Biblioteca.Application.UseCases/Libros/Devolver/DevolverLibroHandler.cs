@@ -1,9 +1,9 @@
 ﻿using Biblioteca.Persistence;
 using MediatR;
 
-namespace Biblioteca.Application.UseCases.Devolver
+namespace Biblioteca.Application.UseCases.Libros.Devolver
 {
-    public class DevolverLibroHandler: IRequestHandler<DevolverLibroCommand, bool>
+    public class DevolverLibroHandler : IRequestHandler<DevolverLibroCommand, bool>
     {
         private readonly ApplicationDbContext _dbcontext;
         public DevolverLibroHandler(ApplicationDbContext dbcontext)

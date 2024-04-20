@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Biblioteca.Application.UseCases.Eliminar
+namespace Biblioteca.Application.UseCases.Libros.Eliminar
 {
     public class DeleteLibroCommand : IRequest<bool>
     {
