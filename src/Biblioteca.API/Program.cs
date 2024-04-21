@@ -16,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using Biblioteca.Application.UseCases.Usuarios.Login;
 using Biblioteca.Application.UseCases.Libros.Editar;
 using Biblioteca.Application.UseCases.Libros.ConsultarPorId;
+using Biblioteca.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,15 +113,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(o =>
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
 //Inyectamos los servicios a nuestra clase program.cs
-builder.Services.AddScoped<IRequestHandler<GetlAllLibrosQuery, List<LibroDto>>, GetAllLibrosHandler>();
-builder.Services.AddScoped<IRequestHandler<CreateLibroCommand, bool>, CreateLibroHandler>();
-builder.Services.AddScoped<IRequestHandler<DeleteLibroCommand, bool>, DeleteLibroHandler>();
-builder.Services.AddScoped<IRequestHandler<DevolverLibroCommand, bool>, DevolverLibroHandler>();
-builder.Services.AddScoped<IRequestHandler<PrestarCommand, bool>, PrestarHandler>();
-builder.Services.AddScoped<IRequestHandler<CreateUsuarioCommand, bool>, CreateUsuarioHandler>();
-builder.Services.AddScoped<IRequestHandler<LoginCommand, bool>, LoginHandler>();
-builder.Services.AddScoped<IRequestHandler<GetlAllLibrosQueryById, LibroDto>, GetAllLibroByIdHandler>();
-builder.Services.AddScoped<IRequestHandler<EditLibroCommand, bool>, EditLibroHandler>();
+builder.Services.AddScoped<IRequestHandler<GetlAllLibrosQuery, Result <List<LibroDto>>>, GetAllLibrosHandler>();
+builder.Services.AddScoped<IRequestHandler<CreateLibroCommand, Result<LibroDto>>, CreateLibroHandler>();
+builder.Services.AddScoped<IRequestHandler<DeleteLibroCommand, Result<string>>, DeleteLibroHandler>();
+builder.Services.AddScoped<IRequestHandler<DevolverLibroCommand, Result<string>>, DevolverLibroHandler>();
+builder.Services.AddScoped<IRequestHandler<PrestarCommand, Result<string>>, PrestarHandler>();
+builder.Services.AddScoped<IRequestHandler<CreateUsuarioCommand, Result<UserDto>>, CreateUsuarioHandler>();
+builder.Services.AddScoped<IRequestHandler<LoginCommand, Result<UserDto>>, LoginHandler>();
+builder.Services.AddScoped<IRequestHandler<GetlAllLibrosQueryById, Result<LibroDto>>, GetAllLibroByIdHandler>();
+builder.Services.AddScoped<IRequestHandler<EditLibroCommand, Result<LibroDto>>, EditLibroHandler>();
 
 var app = builder.Build();
 

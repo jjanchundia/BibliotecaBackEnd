@@ -35,7 +35,7 @@ namespace Biblioteca.API.Controllers
         {
             var response = await _mediator.Send(command);
 
-            if (response)
+            if (response.IsSuccess)
             {
                 // Crear claims basados en el usuario autenticado
                 var claims = new[]

@@ -1,10 +1,11 @@
-﻿using MediatR;
+﻿using Biblioteca.Application.Dtos;
+using Biblioteca.Domain;
+using MediatR;
 
 namespace Biblioteca.Application.UseCases.Libros.Prestar
 {
-    public class PrestarCommand : IRequest<bool>
+    public class PrestarCommand : IRequest<Result<string>>
     {
         public int LibroId { get; set; }
-        //public string? Name { get; set; }
     }
 }

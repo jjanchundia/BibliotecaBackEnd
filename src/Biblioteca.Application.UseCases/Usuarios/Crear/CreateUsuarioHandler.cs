@@ -1,10 +1,11 @@
-﻿using Biblioteca.Domain;
+﻿using Biblioteca.Application.Dtos;
+using Biblioteca.Domain;
 using Biblioteca.Persistence;
 using MediatR;
 
 namespace Biblioteca.Application.UseCases.Usuarios.Crear
 {
-    public class CreateUsuarioHandler: IRequestHandler<CreateUsuarioCommand, bool>
+    public class CreateUsuarioHandler: IRequestHandler<CreateUsuarioCommand, Result<UserDto>>
     {
         private readonly ApplicationDbContext _dbcontext;
         public CreateUsuarioHandler(ApplicationDbContext dbcontext)
@@ -12,7 +13,7 @@ namespace Biblioteca.Application.UseCases.Usuarios.Crear
             _dbcontext = dbcontext;
         }
 
-        public async Task<bool> Handle(CreateUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<Result<UserDto>> Handle(CreateUsuarioCommand request, CancellationToken cancellationToken)
         {
             var nuevo = new User()
             {
@@ -22,8 +23,17 @@ namespace Biblioteca.Application.UseCases.Usuarios.Crear
             };
 
             await _dbcontext.Users.AddAsync(nuevo);
-            _dbcontext.SaveChanges();
-            return true;
+            await _dbcontext.SaveChangesAsync();
+
+            var ultimoIdInsertado = nuevo.Id;
+
+            return Result<UserDto>.Success(new UserDto
+            {
+                Id = ultimoIdInsertado,
+                Username = request.Username,
+                Password = request.Password,
+                Role = request.Role
+            });
         }
     }
 }

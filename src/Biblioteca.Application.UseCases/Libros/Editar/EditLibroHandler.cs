@@ -1,10 +1,12 @@
-﻿using Biblioteca.Persistence;
+﻿using Biblioteca.Application.Dtos;
+using Biblioteca.Domain;
+using Biblioteca.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca.Application.UseCases.Libros.Editar
 {
-    public class EditLibroHandler : IRequestHandler<EditLibroCommand, bool>
+    public class EditLibroHandler : IRequestHandler<EditLibroCommand, Result<LibroDto>>
     {
         private readonly ApplicationDbContext _dbcontext;
         public EditLibroHandler(ApplicationDbContext dbcontext)
@@ -12,12 +14,12 @@ namespace Biblioteca.Application.UseCases.Libros.Editar
             _dbcontext = dbcontext;
         }
 
-        public async Task<bool> Handle(EditLibroCommand request, CancellationToken cancellationToken)
+        public async Task<Result<LibroDto>> Handle(EditLibroCommand request, CancellationToken cancellationToken)
         {
             var libro = await _dbcontext.Libro.Where(x => x.LibroId == request.LibroId).FirstOrDefaultAsync();
             if (libro == null)
             {
-                return false;
+                return Result<LibroDto>.Failure("No se encontró libro para actualizar!");
             }
 
             // Actualizar los campos del libro con los valores proporcionados en la solicitud
@@ -27,7 +29,13 @@ namespace Biblioteca.Application.UseCases.Libros.Editar
             // Guardar los cambios en la base de datos
             await _dbcontext.SaveChangesAsync();
 
-            return true;
+            return Result<LibroDto>.Success(new LibroDto
+            {
+                LibroId = libro.LibroId,
+                Nombre = libro.Nombre,
+                Descripcion = libro.Descripcion,
+                Estado = libro.Estado
+            });
         }
     }
 }

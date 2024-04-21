@@ -1,11 +1,13 @@
 ﻿using Biblioteca.Application.Dtos;
+using Biblioteca.Domain;
 using Biblioteca.Persistence;
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca.Application.UseCases.Libros.ConsultarPorId
 {
-    public class GetAllLibroByIdHandler : IRequestHandler<GetlAllLibrosQueryById, LibroDto>
+    public class GetAllLibroByIdHandler : IRequestHandler<GetlAllLibrosQueryById, Result<LibroDto>>
     {
         private readonly ApplicationDbContext _dbcontext;
 
@@ -14,13 +16,13 @@ namespace Biblioteca.Application.UseCases.Libros.ConsultarPorId
             _dbcontext = dbcontext;
         }
 
-        public async Task<LibroDto> Handle(GetlAllLibrosQueryById request, CancellationToken cancellationToken)
+        public async Task<Result<LibroDto>> Handle(GetlAllLibrosQueryById request, CancellationToken cancellationToken)
         {
             var lib = await _dbcontext.Libro.Where(x => x.LibroId == request.LibroId).FirstOrDefaultAsync();
 
             if(lib == null)
             {
-                //return false;
+                return Result<LibroDto>.Failure("No se encontró libro!");
             }
 
             var librosDto = new LibroDto
@@ -31,7 +33,7 @@ namespace Biblioteca.Application.UseCases.Libros.ConsultarPorId
                 Estado = lib.Estado
             };
 
-            return librosDto;
+            return Result<LibroDto>.Success(librosDto);
         }
     }
 }

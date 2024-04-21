@@ -1,16 +1,11 @@
-﻿using Biblioteca.Application.UseCases.Usuarios.Crear;
+﻿using Biblioteca.Application.Dtos;
 using Biblioteca.Domain;
 using Biblioteca.Persistence;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Biblioteca.Application.UseCases.Usuarios.Login
 {
-    public class LoginHandler : IRequestHandler<LoginCommand, bool>
+    public class LoginHandler : IRequestHandler<LoginCommand, Result<UserDto>>
     {
         private readonly ApplicationDbContext _dbcontext;
         public LoginHandler(ApplicationDbContext dbcontext)
@@ -18,16 +13,22 @@ namespace Biblioteca.Application.UseCases.Usuarios.Login
             _dbcontext = dbcontext;
         }
 
-        public async Task<bool> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<Result<UserDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var user = _dbcontext.Users.Where(x => x.Username == request.Username && x.Password == request.Password).FirstOrDefault();
 
-            if (user != null)
+            if (user == null)
             {
-                return true;
+                return Result<UserDto>.Failure("No se encontró usuario!");
             }
-            
-            return false;
+
+            return Result<UserDto>.Success(new UserDto
+            {
+                Id = user.Id,
+                Password = user.Password,
+                Username = user.Username,
+                Role = user.Role
+            });
         }
     }
 }

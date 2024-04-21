@@ -1,11 +1,12 @@
 ﻿using Biblioteca.Application.Dtos;
+using Biblioteca.Domain;
 using Biblioteca.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca.Application.UseCases.Libros.Consultar
 {
-    public class GetAllLibrosHandler : IRequestHandler<GetlAllLibrosQuery, List<LibroDto>>
+    public class GetAllLibrosHandler : IRequestHandler<GetlAllLibrosQuery, Result<List<LibroDto>>>
     {
         private readonly ApplicationDbContext _dbcontext;
 
@@ -14,7 +15,7 @@ namespace Biblioteca.Application.UseCases.Libros.Consultar
             _dbcontext = dbcontext;
         }
 
-        public async Task<List<LibroDto>> Handle(GetlAllLibrosQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<LibroDto>>> Handle(GetlAllLibrosQuery request, CancellationToken cancellationToken)
         {
             var libros = await _dbcontext.Libro.ToListAsync();
             var librosDto = libros.Select(libro => new LibroDto
@@ -25,7 +26,7 @@ namespace Biblioteca.Application.UseCases.Libros.Consultar
                 Estado = libro.Estado
             }).ToList();
 
-            return librosDto;
+            return Result<List<LibroDto>>.Success(librosDto);
         }
     }
 }

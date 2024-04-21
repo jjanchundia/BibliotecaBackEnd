@@ -1,9 +1,11 @@
-﻿using Biblioteca.Persistence;
+﻿using Biblioteca.Application.Dtos;
+using Biblioteca.Domain;
+using Biblioteca.Persistence;
 using MediatR;
 
 namespace Biblioteca.Application.UseCases.Libros.Devolver
 {
-    public class DevolverLibroHandler : IRequestHandler<DevolverLibroCommand, bool>
+    public class DevolverLibroHandler : IRequestHandler<DevolverLibroCommand, Result<string>>
     {
         private readonly ApplicationDbContext _dbcontext;
         public DevolverLibroHandler(ApplicationDbContext dbcontext)
@@ -11,7 +13,7 @@ namespace Biblioteca.Application.UseCases.Libros.Devolver
             _dbcontext = dbcontext;
         }
 
-        public async Task<bool> Handle(DevolverLibroCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(DevolverLibroCommand request, CancellationToken cancellationToken)
         {
             // 1. Obtener el libro que se desea actualizar
             var libroToUpdate = await _dbcontext.Libro.FindAsync(request.LibroId);
@@ -19,7 +21,7 @@ namespace Biblioteca.Application.UseCases.Libros.Devolver
             if (libroToUpdate == null)
             {
                 // El libro no fue encontrado, puedes manejar esta situación de acuerdo a tus necesidades
-                return false;
+                return Result<string>.Failure("No se encontró libro para devolver!");
             }
 
             // 2. Actualizar las propiedades del libro
@@ -28,7 +30,7 @@ namespace Biblioteca.Application.UseCases.Libros.Devolver
             // 3. Guardar los cambios en la base de datos
             await _dbcontext.SaveChangesAsync();
 
-            return true;
+            return Result<string>.Success("Libro devuelto correctamente!");
         }
     }
 }

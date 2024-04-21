@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Biblioteca.Persistence;
 using Biblioteca.Domain;
+using Biblioteca.Application.Dtos;
 
 namespace Biblioteca.Application.UseCases.Libros.Crear
 {
-    public class CreateLibroHandler : IRequestHandler<CreateLibroCommand, bool>
+    public class CreateLibroHandler : IRequestHandler<CreateLibroCommand, Result<LibroDto>>
     {
         private readonly ApplicationDbContext _dbcontext;
         public CreateLibroHandler(ApplicationDbContext dbcontext)
@@ -12,7 +13,7 @@ namespace Biblioteca.Application.UseCases.Libros.Crear
             _dbcontext = dbcontext;
         }
 
-        public async Task<bool> Handle(CreateLibroCommand request, CancellationToken cancellationToken)
+        public async Task<Result<LibroDto>> Handle(CreateLibroCommand request, CancellationToken cancellationToken)
         {
             var nuevo = new Libro()
             {
@@ -22,8 +23,17 @@ namespace Biblioteca.Application.UseCases.Libros.Crear
             };
 
             await _dbcontext.Libro.AddAsync(nuevo);
-            _dbcontext.SaveChanges();
-            return true;
+            await _dbcontext.SaveChangesAsync();
+
+            var ultimoIdInsertado = nuevo.LibroId;
+
+            return Result<LibroDto>.Success(new LibroDto
+            {
+                LibroId = ultimoIdInsertado,
+                Nombre = nuevo.Nombre,
+                Descripcion = nuevo.Descripcion,
+                Estado = nuevo.Estado
+            });
         }
     }
 }

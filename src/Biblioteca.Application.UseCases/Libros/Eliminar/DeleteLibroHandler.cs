@@ -1,9 +1,11 @@
-﻿using Biblioteca.Persistence;
+﻿using Biblioteca.Application.Dtos;
+using Biblioteca.Domain;
+using Biblioteca.Persistence;
 using MediatR;
 
 namespace Biblioteca.Application.UseCases.Libros.Eliminar
 {
-    public class DeleteLibroHandler : IRequestHandler<DeleteLibroCommand, bool>
+    public class DeleteLibroHandler : IRequestHandler<DeleteLibroCommand, Result<string>>
     {
         private readonly ApplicationDbContext _dbcontext;
         public DeleteLibroHandler(ApplicationDbContext dbcontext)
@@ -11,14 +13,14 @@ namespace Biblioteca.Application.UseCases.Libros.Eliminar
             _dbcontext = dbcontext;
         }
 
-        public async Task<bool> Handle(DeleteLibroCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(DeleteLibroCommand request, CancellationToken cancellationToken)
         {
             var libroToDelete = await _dbcontext.Libro.FindAsync(request.LibroId);
 
             if (libroToDelete == null)
             {
                 // El libro no fue encontrado, puedes manejar esta situación de acuerdo a tus necesidades
-                return false;
+                return Result<string>.Failure("No se encontró libro para eliminar!");
             }
 
             // 2. Eliminar el libro
@@ -27,7 +29,7 @@ namespace Biblioteca.Application.UseCases.Libros.Eliminar
             // 3. Guardar los cambios en la base de datos
             await _dbcontext.SaveChangesAsync();
 
-            return true;
+            return Result<string>.Success("Libro eliminado correctamente!");
         }
     }
 }
