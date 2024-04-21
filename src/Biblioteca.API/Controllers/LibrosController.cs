@@ -6,6 +6,8 @@ using Biblioteca.Application.UseCases.Libros.Prestar;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Biblioteca.Application.UseCases.Libros.Editar;
+using Biblioteca.Application.UseCases.Libros.ConsultarPorId;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,8 +34,22 @@ namespace Biblioteca.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("{libroId:int}")]
+        public async Task<IActionResult> LibroPorId(int libroId)
+        {
+            var response = await _mediator.Send(new GetlAllLibrosQueryById() { LibroId = libroId});
+            return Ok(response);
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> CreateLibro(CreateLibroCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("edit")]
+        public async Task<IActionResult> EditLibro(EditLibroCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);

@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
 using Biblioteca.Application.Dtos;
 using Biblioteca.Persistence;
 using MediatR;
@@ -15,7 +14,8 @@ using Biblioteca.Application.UseCases.Libros.Prestar;
 using Biblioteca.Application.UseCases.Usuarios.Crear;
 using Microsoft.OpenApi.Models;
 using Biblioteca.Application.UseCases.Usuarios.Login;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Biblioteca.Application.UseCases.Libros.Editar;
+using Biblioteca.Application.UseCases.Libros.ConsultarPorId;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -119,6 +119,8 @@ builder.Services.AddScoped<IRequestHandler<DevolverLibroCommand, bool>, Devolver
 builder.Services.AddScoped<IRequestHandler<PrestarCommand, bool>, PrestarHandler>();
 builder.Services.AddScoped<IRequestHandler<CreateUsuarioCommand, bool>, CreateUsuarioHandler>();
 builder.Services.AddScoped<IRequestHandler<LoginCommand, bool>, LoginHandler>();
+builder.Services.AddScoped<IRequestHandler<GetlAllLibrosQueryById, LibroDto>, GetAllLibroByIdHandler>();
+builder.Services.AddScoped<IRequestHandler<EditLibroCommand, bool>, EditLibroHandler>();
 
 var app = builder.Build();
 
