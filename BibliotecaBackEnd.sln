@@ -11,15 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{0C5424
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestucture", "Infraestucture", "{78C8D1BE-9B4B-45B5-B6B2-2334B03EA463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.API", "src\Biblioteca.API\Biblioteca.API.csproj", "{CF64932F-E0A4-4077-B761-C56605EA1C3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.API", "src\Biblioteca.API\Biblioteca.API.csproj", "{CF64932F-E0A4-4077-B761-C56605EA1C3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Domain", "src\Biblioteca.Domain\Biblioteca.Domain.csproj", "{CC11355A-A693-45D2-9043-D728BE053742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Domain", "src\Biblioteca.Domain\Biblioteca.Domain.csproj", "{CC11355A-A693-45D2-9043-D728BE053742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Persistence", "src\Biblioteca.Persistence\Biblioteca.Persistence.csproj", "{4022F3C1-F633-4E21-A511-7BB10C365DCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Persistence", "src\Biblioteca.Persistence\Biblioteca.Persistence.csproj", "{4022F3C1-F633-4E21-A511-7BB10C365DCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Application.Dtos", "src\Biblioteca.Application.Dtos\Biblioteca.Application.Dtos.csproj", "{0BE38598-C1C7-4A8D-8290-8E171BC4C9FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Application.Dtos", "src\Biblioteca.Application.Dtos\Biblioteca.Application.Dtos.csproj", "{0BE38598-C1C7-4A8D-8290-8E171BC4C9FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca.Application.UseCases", "src\Biblioteca.Application.UseCases\Biblioteca.Application.UseCases.csproj", "{D1CBD43D-CACC-450B-B548-6FFF52EE7789}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biblioteca.Application.UseCases", "src\Biblioteca.Application.UseCases\Biblioteca.Application.UseCases.csproj", "{D1CBD43D-CACC-450B-B548-6FFF52EE7789}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{07FE805C-6294-41FC-B905-58FE85AD0A30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingAPI", "src\TestingAPI\TestingAPI.csproj", "{33F89E92-41DF-46C2-A2F3-229CDD56D8DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,10 @@ Global
 		{D1CBD43D-CACC-450B-B548-6FFF52EE7789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1CBD43D-CACC-450B-B548-6FFF52EE7789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1CBD43D-CACC-450B-B548-6FFF52EE7789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33F89E92-41DF-46C2-A2F3-229CDD56D8DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33F89E92-41DF-46C2-A2F3-229CDD56D8DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33F89E92-41DF-46C2-A2F3-229CDD56D8DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33F89E92-41DF-46C2-A2F3-229CDD56D8DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +65,7 @@ Global
 		{4022F3C1-F633-4E21-A511-7BB10C365DCE} = {78C8D1BE-9B4B-45B5-B6B2-2334B03EA463}
 		{0BE38598-C1C7-4A8D-8290-8E171BC4C9FB} = {AB522737-BA47-4B31-A6C5-F92B717AD006}
 		{D1CBD43D-CACC-450B-B548-6FFF52EE7789} = {AB522737-BA47-4B31-A6C5-F92B717AD006}
+		{33F89E92-41DF-46C2-A2F3-229CDD56D8DA} = {07FE805C-6294-41FC-B905-58FE85AD0A30}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33BC22DA-0134-4089-88B2-E86E2CAE508A}

@@ -7,5 +7,6 @@ namespace Biblioteca.Application.Dtos
         public string Username { get; set; }
         public string Password { get; set; }
         public string Role { get; set; } // Rol del usuario para autorización
+        public string Token { get; set; }
     }
 }

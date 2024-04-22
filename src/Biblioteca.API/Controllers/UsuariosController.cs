@@ -33,35 +33,37 @@ namespace Biblioteca.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginCommand command)
         {
+            //Se retorna un UserDto con los datos del usuario logueado mas el Token
             var response = await _mediator.Send(command);
+            return Ok(response);
 
-            if (response.IsSuccess)
-            {
-                // Crear claims basados en el usuario autenticado
-                var claims = new[]
-                {
-                    new Claim(command.Username, command.Password),
-                    // Puedes agregar más claims según sea necesario (por ejemplo, roles)
-                };
+            //if (response.IsSuccess)
+            //{
+            //    // Crear claims basados en el usuario autenticado
+            //    var claims = new[]
+            //    {
+            //        new Claim(command.Username, command.Password),
+            //        // Puedes agregar más claims según sea necesario (por ejemplo, roles)
+            //    };
 
-                // Configurar la clave secreta para firmar el token
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var expiracion = DateTime.UtcNow.AddHours(24);
-                // Configurar la información del token
-                var token = new JwtSecurityToken(
-                    issuer: _config["Jwt:Issuer"],
-                    audience: _config["Jwt:Audience"],
-                    claims: claims,
-                    expires: expiracion,
-                    signingCredentials: creds);
+            //    // Configurar la clave secreta para firmar el token
+            //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]));
+            //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            //    var expiracion = DateTime.UtcNow.AddHours(24);
+            //    // Configurar la información del token
+            //    var token = new JwtSecurityToken(
+            //        issuer: _config["Jwt:Issuer"],
+            //        audience: _config["Jwt:Audience"],
+            //        claims: claims,
+            //        expires: expiracion,
+            //        signingCredentials: creds);
 
-                // Devolver el token JWT como resultado de la autenticación exitosa
-                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
-            }
+            //    // Devolver el token JWT como resultado de la autenticación exitosa
+            //    return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+            //}
 
-            // Devolver un error de no autorizado si las credenciales son incorrectas
-            return Unauthorized();
+            //// Devolver un error de no autorizado si las credenciales son incorrectas
+            //return Unauthorized();
         }
     }
 }

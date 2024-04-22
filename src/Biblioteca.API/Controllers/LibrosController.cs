@@ -37,7 +37,7 @@ namespace Biblioteca.API.Controllers
         [HttpGet("{libroId:int}")]
         public async Task<IActionResult> LibroPorId(int libroId)
         {
-            var response = await _mediator.Send(new GetlAllLibrosQueryById() { LibroId = libroId});
+            var response = await _mediator.Send(new GetlAllLibrosQueryById() { LibroId = libroId });
             return Ok(response);
         }
 
